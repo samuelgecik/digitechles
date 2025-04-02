@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import Layout from '../components/Layout';
-import VegetationZoneMap from '../components/VegetationZoneMap';
+import MapComponent from '../components/MapComponent'; // Changed from VegetationZoneMap
 import SidebarContent from '../components/SidebarContent';
 import ExpandedSidebarContent from '../components/ExpandedSidebarContent';
+import type { PointData } from '../lib/types'; // Add this import
 
+// Keep this for backward compatibility
 interface ZoneData {
   name: string;
   altitudeRange: [number, number];
@@ -11,11 +13,43 @@ interface ZoneData {
   idealSpecies: string[];
 }
 
+// Mock point data for demonstration (you should replace this with actual data)
+const mockPoints: PointData[] = [
+  {
+    id: '1',
+    name: 'Oak-Hornbeam Zone',
+    coordinates: [48.7, 19.5],
+    zoneId: 'Oak-Hornbeam',
+    areaSize: 250,
+    metadata: {
+      altitudeRange: [300, 500],
+      soilType: 'Loamy soil with good drainage',
+      idealSpecies: ['European Oak', 'Common Hornbeam']
+    }
+  }
+];
+
 export default function Home() {
   const [selectedZone, setSelectedZone] = useState<ZoneData | null>(null);
+  const [selectedPoint, setSelectedPoint] = useState<PointData | null>(null);
 
-  const handleZoneSelect = (zoneData: ZoneData) => {
+  const handlePointSelect = (pointData: PointData) => {
+    setSelectedPoint(pointData);
+
+    // For backward compatibility, create a ZoneData from the PointData
+    const zoneData: ZoneData = {
+      name: pointData.name,
+      altitudeRange: pointData.metadata?.altitudeRange || [0, 0],
+      soilType: pointData.metadata?.soilType || '',
+      idealSpecies: pointData.metadata?.idealSpecies || []
+    };
+
     setSelectedZone(zoneData);
+  };
+
+  const handleMoreDetails = () => {
+    // This function will be called when "View More Details" is clicked in a popup
+    console.log('More details requested for:', selectedPoint?.name);
   };
 
   // Regular sidebar content when a zone is selected
@@ -40,7 +74,11 @@ export default function Home() {
       sidebarContent={sidebarContent}
       expandedContent={expandedContent}
     >
-      <VegetationZoneMap onZoneSelect={handleZoneSelect} />
+      <MapComponent
+        points={mockPoints}
+        onPointSelect={handlePointSelect}
+        onMoreDetails={handleMoreDetails}
+      />
     </Layout>
   );
 }
