@@ -451,7 +451,7 @@ When a predefined point or area within a vegetation zone is selected:
 - [x] Implement basic layout structure with header and content area
 - [x] Add Leaflet map component with Slovakia boundaries
 - [x] Implement the three predefined marker locations
-- [ ] Create basic sidebar structure with expand/collapse functionality
+- [x] Create basic sidebar structure with expand/collapse functionality
 
 ### Phase 2: Vegetation Zone Implementation
 - [ ] Implement GeoJSON loading for vegetation zones
