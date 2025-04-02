@@ -7,10 +7,10 @@ import dynamic from 'next/dynamic';
 
 // Dynamically import the map components with no SSR
 const MapWithNoSSR = dynamic(
-  () => import('../components/Map').then(mod => mod.default),
+  () => import('../components/Map'),
   {
-    ssr: false,
-    loading: () => <div className="h-full w-full flex items-center justify-center">Loading map...</div>
+    ssr: false, // This is the crucial part
+    loading: () => <div className="h-full w-full flex items-center justify-center bg-muted text-muted-foreground">Loading map...</div>
   }
 );
 
@@ -31,7 +31,7 @@ export default function MapComponent({ points, onPointSelect, onMoreDetails, cla
       <MapWithNoSSR
         points={points}
         onPointSelect={onPointSelect}
-        onMoreDetails={onMoreDetails}
+        onMoreDetails={onMoreDetails} // Pass the handler down to Map
         defaultCenter={defaultCenter}
         defaultZoom={defaultZoom}
       />

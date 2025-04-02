@@ -1,8 +1,8 @@
 'use client';
 
+import React, { useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useEffect } from 'react';
 import type { PointData } from '../lib/types';
 
 interface MapProps {
@@ -21,17 +21,15 @@ export default function Map({ points, onPointSelect, onMoreDetails, defaultCente
             const L = (await import('leaflet')).default;
 
             // Fix for default icon issue with Webpack/Next.js
-            // Using a type-safe approach to avoid TypeScript errors
-            // Fix for default icon issue with Webpack/Next.js by bypassing type check for private property
             delete (L.Icon.Default.prototype as any)._getIconUrl;
 
             L.Icon.Default.mergeOptions({
-                iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
-                iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
-                shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+                iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
+                iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+                shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
             });
         })();
-    }, []);
+    }, []); // Empty dependency array ensures this runs only once on mount
 
     return (
         <MapContainer
@@ -41,7 +39,7 @@ export default function Map({ points, onPointSelect, onMoreDetails, defaultCente
             style={{ height: '100%', width: '100%' }}
         >
             <TileLayer
-                attribution='&amp;copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             {points && points.map(point => (
@@ -54,22 +52,21 @@ export default function Map({ points, onPointSelect, onMoreDetails, defaultCente
                         },
                     }}
                 >
-                    <Popup className="leaflet-popup-content-wrapper">
-                        <div className="leaflet-popup-content p-2">
-                            <h3 className="font-semibold text-primary">{point.name}</h3>
-                            <p className="text-sm my-1">Zone: {point.zoneId}</p>
-                            <p className="text-sm my-1">Area: {point.areaSize} ha</p>
+                    <Popup>
+                        <h3 className="font-semibold text-sm text-primary mb-1">{point.name}</h3>
+                        <p className="text-xs my-0.5">Zone: {point.zoneId}</p>
+                        <p className="text-xs my-0.5">Area: {point.areaSize} ha</p>
+                        {onMoreDetails && (
                             <button
-                                className="text-sm text-blue-600 hover:underline mt-2"
+                                className="text-xs text-blue-600 hover:underline mt-1.5 w-full text-left"
                                 onClick={(e) => {
-                                    e.preventDefault();
                                     e.stopPropagation();
-                                    onMoreDetails?.();
+                                    onMoreDetails();
                                 }}
                             >
-                                More Details →
+                                View More Details &rarr;
                             </button>
-                        </div>
+                        )}
                     </Popup>
                 </Marker>
             ))}
