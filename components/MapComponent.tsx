@@ -1,21 +1,21 @@
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
-import L from 'leaflet';
+'use client';
+
+import { useEffect, useState } from 'react';
 import { cn } from '../lib/utils';
 import type { PointData } from '../lib/types';
+import dynamic from 'next/dynamic';
 
-// Fix for default icon issue with Webpack/Next.js
-// @ts-ignore - Workaround for Leaflet icon issue
-delete L.Icon.Default.prototype._getIconUrl;
-// @ts-ignore - Workaround for Leaflet type issue
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
-  iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
-  shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
-});
+// Dynamically import the map components with no SSR
+const MapWithNoSSR = dynamic(
+  () => import('../components/Map').then(mod => mod.default),
+  {
+    ssr: false,
+    loading: () => <div className="h-full w-full flex items-center justify-center">Loading map...</div>
+  }
+);
 
 // Default map center (Slovakia) and zoom
-const defaultCenter: L.LatLngExpression = [48.669, 19.699];
+const defaultCenter: [number, number] = [48.669, 19.699];
 const defaultZoom = 7;
 
 interface MapComponentProps {
@@ -28,46 +28,13 @@ interface MapComponentProps {
 export default function MapComponent({ points, onPointSelect, onMoreDetails, className }: MapComponentProps) {
   return (
     <div className={cn("h-[80vh] md:h-[70vh] w-full rounded-md border border-border overflow-hidden", className)}>
-      <MapContainer
-        center={defaultCenter}
-        zoom={defaultZoom}
-        scrollWheelZoom={true}
-        style={{ height: '100%', width: '100%' }}
-      >
-        <TileLayer
-          attribution='&amp;copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        {points && points.map(point => (
-          <Marker
-            key={point.id}
-            position={point.coordinates}
-            eventHandlers={{
-              click: () => {
-                onPointSelect(point);
-              },
-            }}
-          >
-            <Popup className="leaflet-popup-content-wrapper">
-              <div className="leaflet-popup-content p-2">
-                <h3 className="font-semibold text-primary">{point.name}</h3>
-                <p className="text-sm my-1">Zone: {point.zoneId}</p>
-                <p className="text-sm my-1">Area: {point.areaSize} ha</p>
-                <button
-                  className="text-sm text-blue-600 hover:underline mt-2"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    onMoreDetails?.();
-                  }}
-                >
-                  More Details →
-                </button>
-              </div>
-            </Popup>
-          </Marker>
-        ))}
-      </MapContainer>
+      <MapWithNoSSR
+        points={points}
+        onPointSelect={onPointSelect}
+        onMoreDetails={onMoreDetails}
+        defaultCenter={defaultCenter}
+        defaultZoom={defaultZoom}
+      />
     </div>
   );
 }
