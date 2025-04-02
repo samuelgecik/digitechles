@@ -298,7 +298,7 @@ For each parameter (temperature, humidity, etc.):
 │ [Logo] DIGITECHLES                            [Controls] [Help] │
 ├────────────────────────────────────────────────────────────────┤
 │ ┌─────────────────────────────────────┐ ┌────────────────────┐ │
-│ │                                     │ │                    │ │
+│ │                                     │ │  ◄                 │ │
 │ │                                     │ │  Layer Controls    │ │
 │ │                                     │ │  [✓] Base Map      │ │
 │ │                                     │ │  [✓] Vegetation    │ │
@@ -311,21 +311,10 @@ For each parameter (temperature, humidity, etc.):
 │ │                                     │ │                    │ │
 │ │                                     │ │  [Custom Select]   │ │
 │ │                                     │ │                    │ │
+│ │                                     │ │  [Dashboard Tab]   │ │
+│ │                                     │ │  [Charts Preview]  │ │
+│ │                                     │ │                    │ │
 │ └─────────────────────────────────────┘ └────────────────────┘ │
-│ ┌────────────────────────────────────────────────────────────┐ │
-│ │                                                            │ │
-│ │  [Tab: Carbon] [Tab: Environmental] [Tab: Comparison]      │ │
-│ │  ┌──────────────────────────────────────────────────────┐  │ │
-│ │  │                                                      │  │ │
-│ │  │  [Chart: Carbon Sequestration Over 30 Years]         │  │ │
-│ │  │                                                      │  │ │
-│ │  └──────────────────────────────────────────────────────┘  │ │
-│ │  Tree Density: [====|==========] 2500 trees/ha             │ │
-│ │  [Low] [Medium] [High]                                     │ │
-│ │                                                            │ │
-│ │  Total Sequestration: 240 tons CO₂ over 30 years          │ │
-│ │                                                            │ │
-│ └────────────────────────────────────────────────────────────┘ │
 └────────────────────────────────────────────────────────────────┘
 ```
 
@@ -368,6 +357,7 @@ When a predefined point or area within a vegetation zone is selected:
 - Line graph showing cumulative carbon sequestration over 30 years
 - Key milestone markers at years 5, 10, 20, and 30
 - Comparison feature to contrast different scenarios
+- Displayed in the expandable sidebar dashboard view
 
 ### 6. Environmental Impact Analysis
 
@@ -380,8 +370,18 @@ When a predefined point or area within a vegetation zone is selected:
   - Albedo modification
   - Water retention improvement
 - Time slider to view projected changes at different years
+- Accessible through the expandable sidebar interface
 
-### 7. User Guidance System
+### 7. Expandable Sidebar Dashboard
+
+- Arrow button on sidebar to expand/collapse the dashboard view
+- When expanded, sidebar takes up approximately 70% of screen width
+- Map remains visible but minimized when dashboard is expanded
+- Dashboard contains all visualization components
+- Responsive design accommodates different screen sizes
+- On mobile, transitions to full-screen dashboard view
+
+### 8. User Guidance System
 
 - First-time user overlay with brief instructions
 - Contextual tooltips for complex features
@@ -442,3 +442,48 @@ When a predefined point or area within a vegetation zone is selected:
 - Backend integration for saving scenarios
 - More detailed environmental modeling
 - Economic/financial calculator for afforestation projects
+
+## Implementation Checklist
+
+### Phase 1: Project Setup & Base Map
+- [x] Set up Next.js project with TypeScript and Tailwind CSS
+- [x] Install and configure Shadcn/UI components
+- [x] Implement basic layout structure with header and content area
+- [x] Add Leaflet map component with Slovakia boundaries
+- [x] Implement the three predefined marker locations
+- [ ] Create basic sidebar structure with expand/collapse functionality
+
+### Phase 2: Vegetation Zone Implementation
+- [ ] Implement GeoJSON loading for vegetation zones
+- [ ] Create color-coded visualization of zones
+- [ ] Add zone selection interactions (hover/click)
+- [ ] Implement zone information display in sidebar
+- [ ] Create layer toggle controls
+
+### Phase 3: Dashboard Components
+- [ ] Create expandable sidebar dashboard view
+- [ ] Implement tabs for different data categories
+- [ ] Build tree density configurator with slider and presets
+- [ ] Create chart placeholders for visualization sections
+- [ ] Implement responsive behavior for dashboard components
+
+### Phase 4: Calculation Engine
+- [ ] Build carbon sequestration calculation functions
+- [ ] Create environmental impact calculation system
+- [ ] Implement year-based progression model
+- [ ] Connect calculations to UI components
+- [ ] Add data export functionality
+
+### Phase 5: Data Visualization
+- [ ] Implement carbon sequestration charts
+- [ ] Create environmental impact visualizations
+- [ ] Build parameter cards for individual metrics
+- [ ] Add time progression slider
+- [ ] Implement comparison features
+
+### Phase 6: Polish and Optimization
+- [ ] Add user guidance system and tooltips
+- [ ] Implement accessibility features
+- [ ] Add animations and transitions
+- [ ] Optimize performance for large datasets
+- [ ] Cross-browser and responsive testing

@@ -1,4 +1,3 @@
-
 # DIGITECHLES UI/UX Design Specification
 
 ## 1. Design System Overview
@@ -251,7 +250,7 @@ module.exports = {
 │ [Logo] DIGITECHLES                            [Controls] [Help] │
 ├────────────────────────────────────────────────────────────────┤
 │ ┌─────────────────────────────────────┐ ┌────────────────────┐ │
-│ │                                     │ │                    │ │
+│ │                                     │ │  ◄                 │ │
 │ │                                     │ │  Layer Controls    │ │
 │ │                                     │ │  [✓] Base Map      │ │
 │ │                                     │ │  [✓] Vegetation    │ │
@@ -264,30 +263,56 @@ module.exports = {
 │ │                                     │ │                    │ │
 │ │                                     │ │  [Custom Select]   │ │
 │ │                                     │ │                    │ │
+│ │                                     │ │  [Tab: Carbon]     │ │
+│ │                                     │ │  [Tab: Environment]│ │
+│ │                                     │ │                    │ │
 │ └─────────────────────────────────────┘ └────────────────────┘ │
-│ ┌────────────────────────────────────────────────────────────┐ │
-│ │                                                            │ │
-│ │  [Tab: Carbon] [Tab: Environmental] [Tab: Comparison]      │ │
-│ │  ┌──────────────────────────────────────────────────────┐  │ │
-│ │  │                                                      │  │ │
-│ │  │  [Chart: Carbon Sequestration Over 30 Years]         │  │ │
-│ │  │                                                      │  │ │
-│ │  └──────────────────────────────────────────────────────┘  │ │
-│ │  Tree Density: [====|==========] 2500 trees/ha             │ │
-│ │  [Low] [Medium] [High]                                     │ │
-│ │                                                            │ │
-│ │  Total Sequestration: 240 tons CO₂ over 30 years          │ │
-│ │                                                            │ │
-│ └────────────────────────────────────────────────────────────┘ │
 └────────────────────────────────────────────────────────────────┘
 ```
 
 #### Design Decisions
 - Map dominates the interface as the primary interaction point
-- Right sidebar contains contextual controls to maximize map viewing area
-- Bottom panel for data visualization allows users to maintain geographical context while viewing results
-- Tabs organize different data views without overwhelming the user
+- Right sidebar contains contextual controls and dashboard components
+- Sidebar includes an expand/collapse arrow for viewing detailed dashboard
+- Tabs in sidebar organize different data views without overwhelming the user
 - Controls are grouped logically with clear visual hierarchy
+
+### Expanded Sidebar View (Dashboard)
+
+```
+┌────────────────────────────────────────────────────────────────┐
+│ [Logo] DIGITECHLES                            [Controls] [Help] │
+├────────────────────────────────────────────────────────────────┤
+│ ┌───────────────┐ ┌──────────────────────────────────────────┐ │
+│ │               │ │  ►                                       │ │
+│ │               │ │  [Tab: Carbon] [Tab: Environmental]      │ │
+│ │               │ │  ┌────────────────────────────────────┐  │ │
+│ │               │ │  │                                    │  │ │
+│ │ Interactive   │ │  │  [Chart: Carbon Sequestration      │  │ │
+│ │ Map           │ │  │   Over 30 Years]                   │  │ │
+│ │ (Minimized)   │ │  │                                    │  │ │
+│ │               │ │  └────────────────────────────────────┘  │ │
+│ │               │ │                                          │ │
+│ │               │ │  Tree Density: [===|=======] 2500/ha    │ │
+│ │               │ │  [Low] [Medium] [High]                   │ │
+│ │               │ │                                          │ │
+│ │               │ │  Total: 240 tons CO₂ over 30 years      │ │
+│ │               │ │                                          │ │
+│ │               │ │  [Environmental Impact Section]          │ │
+│ │               │ │  ┌─────────┐ ┌─────────┐ ┌─────────┐    │ │
+│ │               │ │  │ Temp    │ │ Humidity│ │ Dust    │    │ │
+│ │               │ │  │ -1.2°C  │ │ +8%     │ │ -14%    │    │ │
+│ │               │ │  └─────────┘ └─────────┘ └─────────┘    │ │
+│ └───────────────┘ └──────────────────────────────────────────┘ │
+└────────────────────────────────────────────────────────────────┘
+```
+
+#### Design Decisions for Expanded Sidebar
+- Clicking the expand arrow (◄) transforms the sidebar to take most of the screen
+- Map remains visible but minimized to maintain geographical context
+- Dashboard components get ample space for detailed visualization
+- Collapse arrow (►) allows returning to the main map view
+- Dashboard includes all visualizations and controls previously in bottom panel
 
 ### Zone Detail View (Activated on Zone Click)
 
@@ -388,20 +413,36 @@ module.exports = {
 │                        │
 ├────────────────────────┤
 │ [Map] [Layers] [Data]  │
+└────────────────────────┘
+```
+
+### Mobile Layout (Dashboard View)
+
+```
+┌────────────────────────┐
+│ DIGITECHLES    [≡][?] │
 ├────────────────────────┤
-│ Selected: Oak Zone     │
+│                        │
+│ [Tab: Carbon][Tab: Env]│
+│ ┌──────────────────┐   │
+│ │                  │   │
+│ │  Carbon Chart    │   │
+│ │                  │   │
+│ └──────────────────┘   │
+│                        │
 │ Tree Density:          │
 │ [==|========] 2000/ha  │
 │                        │
 │ Carbon: 180 tons CO₂   │
-│ [View Details ↓]       │
+│ [Return to Map ↑]      │
 └────────────────────────┘
 ```
 
 #### Mobile Design Decisions
 - Bottom navigation for switching between primary views
-- Collapsible details panel to maximize map viewing area
-- Essential controls and information always visible
+- Full-screen dashboard view on mobile
+- Clear "Return to Map" button to toggle between views
+- Essential controls and information grouped by function
 - Progressive disclosure of detailed information
 
 ## 4. Interactive Element Specifications
@@ -728,11 +769,11 @@ export function useAnimationPresets() {
 
 ## 9. Implementation Checklist
 
-- [ ] Set up Next.js project with Tailwind CSS
-- [ ] Install and configure Shadcn/UI
-- [ ] Configure theme variables and design tokens
-- [ ] Implement base layout and responsive containers
-- [ ] Create map component with Leaflet integration
+- [x] Set up Next.js project with Tailwind CSS
+- [x] Install and configure Shadcn/UI
+- [x] Configure theme variables and design tokens
+- [x] Implement base layout and responsive containers
+- [ ] Create map component with Leaflet integration (basic map exists)
 - [ ] Implement GeoJSON loading for Slovakia and zones
 - [ ] Create control panel components
 - [ ] Implement tree density configurator

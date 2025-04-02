@@ -5,9 +5,7 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    /* Assuming light mode default */
     --foreground: 150 6% 13%;
-    /* Near Black: #212121 approx HSL */
 
     --card: 0 0% 100%;
     --card-foreground: 150 6% 13%;
@@ -16,46 +14,61 @@
     --popover-foreground: 150 6% 13%;
 
     --primary: 152 39% 30%;
-    /* Primary Green: #2D6A4F */
     --primary-foreground: 150 14% 96%;
-    /* Light color for contrast on primary */
 
     --secondary: 201 70% 33%;
-    /* Secondary Blue: #1A759F */
     --secondary-foreground: 210 40% 98%;
-    /* Light color for contrast */
 
     --muted: 210 40% 96.1%;
-    /* Default Shadcn muted */
     --muted-foreground: 215.4 16.3% 46.9%;
-    /* Default Shadcn muted-foreground */
 
     --accent: 30 59% 64%;
-    /* Tertiary Amber: #D4A373 */
     --accent-foreground: 150 6% 13%;
-    /* Dark color for contrast */
 
     --destructive: 0 79% 50%;
-    /* Error Red: #D62828 */
     --destructive-foreground: 0 0% 98%;
-    /* Light color for contrast */
 
     --border: 214.3 31.8% 91.4%;
-    /* Default Shadcn border */
     --input: 214.3 31.8% 91.4%;
-    /* Default Shadcn input */
     --ring: 152 39% 30%;
-    /* Primary Green for focus rings */
 
     --radius: 0.5rem;
-    /* Default Shadcn radius (8px) */
+  }
+
+  .dark {
+    --background: 150 6% 13%;
+    --foreground: 150 14% 96%;
+
+    --card: 150 6% 13%;
+    --card-foreground: 150 14% 96%;
+
+    --popover: 150 6% 13%;
+    --popover-foreground: 150 14% 96%;
+
+    --primary: 152 39% 30%;
+    --primary-foreground: 150 14% 96%;
+
+    --secondary: 201 70% 33%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 150 6% 20%;
+    --muted-foreground: 150 14% 70%;
+
+    --accent: 30 59% 64%;
+    --accent-foreground: 150 6% 13%;
+
+    --destructive: 0 79% 50%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 150 6% 20%;
+    --input: 150 6% 20%;
+    --ring: 152 39% 30%;
   }
 }
 
 body {
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
-  /* Ensure fonts are applied */
   font-feature-settings: "rlig" 1, "calt" 1;
 }
 
@@ -66,17 +79,14 @@ body {
 .leaflet-container {
   height: 100%;
   width: 100%;
-  /* Ensure map tiles are visible */
   z-index: 0;
 }
 
 /* Ensure Leaflet popups appear above other elements if needed */
 .leaflet-popup-pane {
   z-index: 650;
-  /* Adjust as needed */
 }
 
 .leaflet-control-container {
   z-index: 500;
-  /* Ensure controls are above map tiles */
 }
