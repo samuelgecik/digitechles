@@ -21,12 +21,13 @@ const defaultZoom = 7;
 interface MapComponentProps {
   points: PointData[];
   onPointSelect: (point: PointData) => void;
+  onMoreDetails?: () => void;
   className?: string;
 }
 
-export default function MapComponent({ points, onPointSelect, className }: MapComponentProps) {
+export default function MapComponent({ points, onPointSelect, onMoreDetails, className }: MapComponentProps) {
   return (
-    <div className={cn("h-[60vh] md:h-[70vh] w-full rounded-md border border-border overflow-hidden", className)}>
+    <div className={cn("h-[80vh] md:h-[70vh] w-full rounded-md border border-border overflow-hidden", className)}>
       <MapContainer
         center={defaultCenter}
         zoom={defaultZoom}
@@ -55,8 +56,9 @@ export default function MapComponent({ points, onPointSelect, className }: MapCo
                 <button
                   className="text-sm text-blue-600 hover:underline mt-2"
                   onClick={(e) => {
+                    e.preventDefault();
                     e.stopPropagation();
-                    onPointSelect(point);
+                    onMoreDetails?.();
                   }}
                 >
                   More Details →
