@@ -34,7 +34,7 @@ const ExpandedSidebarContent: React.FC<ExpandedSidebarContentProps> = ({ zoneNam
                             min={500}
                             max={5000}
                             step={100}
-                            onValueChange={(value) => setTreeDensity(value[0])}
+                            onValueChange={(value: number[]) => setTreeDensity(value[0])}
                             className="my-2"
                         />
                         <div className="flex justify-between text-xs text-muted-foreground">
