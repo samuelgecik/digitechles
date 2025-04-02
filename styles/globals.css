@@ -1,44 +1,60 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* Define CSS variables based on design_spec.md and Shadcn conventions */
-:root {
-  --background: 0 0% 100%; /* Assuming light mode default */
-  --foreground: 150 6% 13%; /* Near Black: #212121 approx HSL */
 
-  --card: 0 0% 100%;
-  --card-foreground: 150 6% 13%;
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    /* Assuming light mode default */
+    --foreground: 150 6% 13%;
+    /* Near Black: #212121 approx HSL */
 
-  --popover: 0 0% 100%;
-  --popover-foreground: 150 6% 13%;
+    --card: 0 0% 100%;
+    --card-foreground: 150 6% 13%;
 
-  --primary: 152 39% 30%; /* Primary Green: #2D6A4F */
-  --primary-foreground: 150 14% 96%; /* Light color for contrast on primary */
+    --popover: 0 0% 100%;
+    --popover-foreground: 150 6% 13%;
 
-  --secondary: 201 70% 33%; /* Secondary Blue: #1A759F */
-  --secondary-foreground: 210 40% 98%; /* Light color for contrast */
+    --primary: 152 39% 30%;
+    /* Primary Green: #2D6A4F */
+    --primary-foreground: 150 14% 96%;
+    /* Light color for contrast on primary */
 
-  --muted: 210 40% 96.1%; /* Default Shadcn muted */
-  --muted-foreground: 215.4 16.3% 46.9%; /* Default Shadcn muted-foreground */
+    --secondary: 201 70% 33%;
+    /* Secondary Blue: #1A759F */
+    --secondary-foreground: 210 40% 98%;
+    /* Light color for contrast */
 
-  --accent: 30 59% 64%; /* Tertiary Amber: #D4A373 */
-  --accent-foreground: 150 6% 13%; /* Dark color for contrast */
+    --muted: 210 40% 96.1%;
+    /* Default Shadcn muted */
+    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Default Shadcn muted-foreground */
 
-  --destructive: 0 79% 50%; /* Error Red: #D62828 */
-  --destructive-foreground: 0 0% 98%; /* Light color for contrast */
+    --accent: 30 59% 64%;
+    /* Tertiary Amber: #D4A373 */
+    --accent-foreground: 150 6% 13%;
+    /* Dark color for contrast */
 
-  --border: 214.3 31.8% 91.4%; /* Default Shadcn border */
-  --input: 214.3 31.8% 91.4%; /* Default Shadcn input */
-  --ring: 152 39% 30%; /* Primary Green for focus rings */
+    --destructive: 0 79% 50%;
+    /* Error Red: #D62828 */
+    --destructive-foreground: 0 0% 98%;
+    /* Light color for contrast */
 
-  --radius: 0.5rem; /* Default Shadcn radius (8px) */
+    --border: 214.3 31.8% 91.4%;
+    /* Default Shadcn border */
+    --input: 214.3 31.8% 91.4%;
+    /* Default Shadcn input */
+    --ring: 152 39% 30%;
+    /* Primary Green for focus rings */
+
+    --radius: 0.5rem;
+    /* Default Shadcn radius (8px) */
+  }
 }
 
-/* Add dark mode variables if needed later */
-/* .dark { ... } */
-
 body {
-  @apply bg-background text-foreground;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
   /* Ensure fonts are applied */
   font-feature-settings: "rlig" 1, "calt" 1;
 }
@@ -48,16 +64,19 @@ body {
 
 /* Fix Leaflet map container size issue with Tailwind */
 .leaflet-container {
-    height: 100%;
-    width: 100%;
-    /* Ensure map tiles are visible */
-    z-index: 0;
+  height: 100%;
+  width: 100%;
+  /* Ensure map tiles are visible */
+  z-index: 0;
 }
 
 /* Ensure Leaflet popups appear above other elements if needed */
 .leaflet-popup-pane {
-    z-index: 650; /* Adjust as needed */
+  z-index: 650;
+  /* Adjust as needed */
 }
+
 .leaflet-control-container {
-    z-index: 500; /* Ensure controls are above map tiles */
+  z-index: 500;
+  /* Ensure controls are above map tiles */
 }
