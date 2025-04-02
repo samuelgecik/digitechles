@@ -9,7 +9,7 @@ DIGITECHLES is a web application designed to visualize and analyze afforestation
 ### Frontend
 - **Framework**: React with Next.js
 - **Map Library**: Leaflet.js with React-Leaflet
-- **UI Components**: Material-UI
+- **UI Components**: Shadcn/UI (using Tailwind CSS)
 - **Data Visualization**: Recharts
 
 ### Data Management
@@ -208,30 +208,47 @@ For each parameter (temperature, humidity, etc.):
 
 ## UI/UX Design
 
-### Color Scheme
-- **Primary**: #2E7D32 (Forest Green)
-- **Secondary**: #1565C0 (Deep Blue)
-- **Accent**: #FF9800 (Orange) for highlights and calls to action
-- **Background**: #F5F7FA (Light Gray-Blue)
-- **Text**: #212121 (Near Black) for primary text, #757575 (Gray) for secondary text
+### Color Scheme (Based on design_spec.md)
 
-#### Zone Colors
-- Oak Zone: #8BC34A (Light Green)
-- Oak-Hornbeam Zone: #689F38 (Medium Green)
-- Fir-Spruce Zone: #33691E (Dark Green)
-- Spruce Zone: #1B5E20 (Very Dark Green)
-- Dwarf Pine-Alpine Zone: #795548 (Brown)
+#### Primary Palette
+- **Primary Green**: #2D6A4F (Rich forest green for primary actions and branding)
+- **Secondary Blue**: #1A759F (Water-inspired blue for secondary elements)
+- **Tertiary Amber**: #D4A373 (Earth-tone for highlighting and accents)
 
-### Typography
-- **Headings**: Montserrat (Sans-serif)
-- **Body**: Open Sans (Sans-serif)
-- **Data Visualization**: Roboto (Sans-serif)
+#### Extended Palette & Functional Colors
+- Refer to `design_spec.md` for the full extended palette (Greens, Blues, Earth Tones) and functional colors (Success, Warning, Error, Information).
 
-### Layout Structure
-- Fixed header with app title and controls
-- Full-width map as primary interface
-- Collapsible sidebar for configuration and detailed results
-- Bottom panel for charts and visualizations that expands when needed
+#### Vegetation Zone Color Mapping
+- Oak Zone: #588157 (Light forest green)
+- Oak-Hornbeam Zone: #3A5A40 (Medium forest green)
+- Fir-Spruce Zone: #344E41 (Deep forest green)
+- Spruce Zone: #1B4332 (Dark forest green)
+- Dwarf Pine-Alpine Zone: #6B705C (Alpine gray-green)
+
+### Typography (Based on design_spec.md)
+
+#### Font Selection
+- **Primary Font**: Inter (Sans-serif)
+- **Data Visualization Font**: IBM Plex Mono
+
+#### Type Scale
+- Display: 32px/40px (2rem)
+- H1: 24px/32px (1.5rem)
+- H2: 20px/28px (1.25rem)
+- H3: 18px/24px (1.125rem)
+- Body: 16px/24px (1rem)
+- Small/Caption: 14px/20px (0.875rem)
+- Tiny: 12px/16px (0.75rem)
+
+#### Typography Rules
+- Refer to `design_spec.md` for detailed rules on font weight, line height, line length, and contrast.
+
+### Layout Structure (Based on design_spec.md)
+- Fixed header with logo, title, and primary controls.
+- Map dominates the interface as the primary interaction point.
+- Right sidebar contains contextual controls (e.g., layers, selected area info).
+- Bottom panel (potentially tabbed) for data visualization (e.g., charts, results).
+- Responsive design adapting layout for tablet and mobile (refer to `design_spec.md` for details).
 
 ## Component Architecture
 
@@ -277,26 +294,39 @@ For each parameter (temperature, humidity, etc.):
 ### Page Structure
 
 ```
-┌─────────────────────────────────────────────────────┐
-│ Header: DIGITECHLES Logo & Navigation               │
-├─────────────────────────────────────────────────────┤
-│                                         ┌───────────┐
-│                                         │           │
-│                                         │           │
-│                                         │  Control  │
-│                                         │   Panel   │
-│       Interactive Map Display           │           │
-│       (Slovakia with Vegetation Zones)  │  • Layers │
-│                                         │  • Density│
-│                                         │  • Area   │
-│                                         │           │
-│                                         │           │
-│                                         └───────────┘
-├─────────────────────────────────────────────────────┤
-│                                                     │
-│  Results Dashboard (Carbon & Environmental Impact)  │
-│                                                     │
-└─────────────────────────────────────────────────────┘
+┌────────────────────────────────────────────────────────────────┐
+│ [Logo] DIGITECHLES                            [Controls] [Help] │
+├────────────────────────────────────────────────────────────────┤
+│ ┌─────────────────────────────────────┐ ┌────────────────────┐ │
+│ │                                     │ │                    │ │
+│ │                                     │ │  Layer Controls    │ │
+│ │                                     │ │  [✓] Base Map      │ │
+│ │                                     │ │  [✓] Vegetation    │ │
+│ │                                     │ │  [ ] Topography    │ │
+│ │          Interactive Map            │ │                    │ │
+│ │          of Slovakia                │ │  Selected Area     │ │
+│ │                                     │ │  ▢ Bratislava      │ │
+│ │                                     │ │  ▢ Žilina          │ │
+│ │                                     │ │  ▢ High Tatras     │ │
+│ │                                     │ │                    │ │
+│ │                                     │ │  [Custom Select]   │ │
+│ │                                     │ │                    │ │
+│ └─────────────────────────────────────┘ └────────────────────┘ │
+│ ┌────────────────────────────────────────────────────────────┐ │
+│ │                                                            │ │
+│ │  [Tab: Carbon] [Tab: Environmental] [Tab: Comparison]      │ │
+│ │  ┌──────────────────────────────────────────────────────┐  │ │
+│ │  │                                                      │  │ │
+│ │  │  [Chart: Carbon Sequestration Over 30 Years]         │  │ │
+│ │  │                                                      │  │ │
+│ │  └──────────────────────────────────────────────────────┘  │ │
+│ │  Tree Density: [====|==========] 2500 trees/ha             │ │
+│ │  [Low] [Medium] [High]                                     │ │
+│ │                                                            │ │
+│ │  Total Sequestration: 240 tons CO₂ over 30 years          │ │
+│ │                                                            │ │
+│ └────────────────────────────────────────────────────────────┘ │
+└────────────────────────────────────────────────────────────────┘
 ```
 
 ## Feature Implementation Details
