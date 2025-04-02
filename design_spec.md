@@ -277,6 +277,43 @@ module.exports = {
 - Tabs in sidebar organize different data views without overwhelming the user
 - Controls are grouped logically with clear visual hierarchy
 
+### Zone Selection Flow & Sidebar Behavior
+
+When a user clicks on a vegetation zone or predefined point on the map:
+1. A small popup appears with basic information
+2. The popup includes a "View More Details" button
+3. Clicking this button dismisses the popup and activates the sidebar in its non-expanded state
+
+#### Initial Sidebar View (Non-Expanded)
+```
+┌────────────────────────────────────────────────────────────────┐
+│ [Logo] DIGITECHLES                            [Controls] [Help] │
+├────────────────────────────────────────────────────────────────┤
+│ ┌─────────────────────────────────────┐ ┌────────────────────┐ │
+│ │                                     │ │                    │ │
+│ │                                     │ │  ◄                 │ │
+│ │                                     │ │  Oak-Hornbeam Zone │ │
+│ │                                     │ │  300-500m altitude │ │
+│ │                                     │ │                    │ │
+│ │          Interactive Map            │ │  Soil Type:        │ │
+│ │          (Highlighted Zone)         │ │  Loamy soil with   │ │
+│ │                                     │ │  good drainage     │ │
+│ │                                     │ │                    │ │
+│ │                                     │ │  Ideal Species:    │ │
+│ │                                     │ │  • European Oak    │ │
+│ │                                     │ │  • Common Hornbeam │ │
+│ │                                     │ │                    │ │
+│ │                                     │ │  [View Dashboard]  │ │
+│ └─────────────────────────────────────┘ └────────────────────┘ │
+└────────────────────────────────────────────────────────────────┘
+```
+
+#### Design Decisions for Initial Sidebar
+- Sidebar appears on the right side of the screen at a moderate width (~30% of screen)
+- Displays more comprehensive information than the popup, including soil type and species details
+- Contains a left-pointing arrow (◄) at the top, indicating it can be expanded
+- The selected zone/point remains highlighted on the map
+
 ### Expanded Sidebar View (Dashboard)
 
 ```
@@ -308,11 +345,12 @@ module.exports = {
 ```
 
 #### Design Decisions for Expanded Sidebar
-- Clicking the expand arrow (◄) transforms the sidebar to take most of the screen
+- Clicking the expand arrow (◄) in the non-expanded sidebar transforms it to take up most of the screen (~70%)
+- The sidebar expands to the left, pushing the map into a minimized state
 - Map remains visible but minimized to maintain geographical context
 - Dashboard components get ample space for detailed visualization
-- Collapse arrow (►) allows returning to the main map view
-- Dashboard includes all visualizations and controls previously in bottom panel
+- Collapse arrow (►) appears at the top, allowing return to the non-expanded view
+- Dashboard includes comprehensive visualizations and controls for the selected zone
 
 ### Zone Detail View (Activated on Zone Click)
 

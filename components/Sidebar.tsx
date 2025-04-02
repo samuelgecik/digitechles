@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { cn } from '../lib/utils';
+import { Button } from '@/components/ui/button';
 
 interface SidebarProps {
     children: React.ReactNode;
@@ -30,21 +31,17 @@ const Sidebar: React.FC<SidebarProps> = ({ children, expandedContent }) => {
             </button>
 
             <div className={cn(
-                "p-6 pt-10 h-full overflow-y-auto",
+                "p-4 pt-12 h-full overflow-y-auto",
                 expanded ? "hidden" : "block"
             )}>
                 {children}
             </div>
 
             <div className={cn(
-                "p-6 pt-10 h-full overflow-y-auto",
+                "p-4 pt-12 h-full overflow-y-auto",
                 expanded ? "block" : "hidden"
             )}>
-                {expandedContent ||
-                    <div className="flex items-center justify-center h-full">
-                        <p className="text-muted-foreground text-center">No expanded content available</p>
-                    </div>
-                }
+                {expandedContent}
             </div>
         </div>
     );
